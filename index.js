@@ -33,10 +33,18 @@ async function run() {
     try {
         await client.connect();
         const serviceCollection = client.db("luxury-living").collection("service");
+        const projectCollection = client.db("luxury-living").collection("projects");
 
+        // get all services from database
         app.get('/services', async (req, res)=>{
             const services = await serviceCollection.find().toArray();
             res.send(services);
+        })
+
+        // get all projects from database
+        app.get('/projects', async (req, res) => {
+            const projects = await projectCollection.find().toArray();
+            res.send(projects);
         })
     }
     finally {
